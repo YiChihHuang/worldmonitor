@@ -1,0 +1,39 @@
+syntax = "proto3";
+
+package worldmonitor.tech_policy.v1;
+
+import "sebuf/http/annotations.proto";
+import "worldmonitor/core/v1/pagination.proto";
+import "worldmonitor/tech_policy/v1/tech_policy_item.proto";
+
+// ListTechPolicySignalsRequest filters policy monitoring signals.
+message ListTechPolicySignalsRequest {
+  // Source enum ids as comma-separated list.
+  repeated SourceId source_ids = 1 [(sebuf.http.query) = {name: "source_ids"}];
+  // Theme enum ids as comma-separated list.
+  repeated PolicyTheme themes = 2 [(sebuf.http.query) = {name: "themes"}];
+  // Severity enum ids as comma-separated list.
+  repeated SignalSeverity severities = 3 [(sebuf.http.query) = {name: "severities"}];
+  // Full-text query.
+  string query = 4 [(sebuf.http.query) = {name: "query"}];
+  // Start time filter as Unix epoch milliseconds.
+  int64 start_at = 5 [
+    (sebuf.http.int64_encoding) = INT64_ENCODING_NUMBER,
+    (sebuf.http.query) = {name: "start_at"}
+  ];
+  // End time filter as Unix epoch milliseconds.
+  int64 end_at = 6 [
+    (sebuf.http.int64_encoding) = INT64_ENCODING_NUMBER,
+    (sebuf.http.query) = {name: "end_at"}
+  ];
+  // Pagination controls.
+  worldmonitor.core.v1.PaginationRequest pagination = 7;
+}
+
+// ListTechPolicySignalsResponse returns normalized signal items.
+message ListTechPolicySignalsResponse {
+  // Matched signals.
+  repeated TechPolicySignal items = 1;
+  // Pagination metadata.
+  worldmonitor.core.v1.PaginationResponse pagination = 2;
+}

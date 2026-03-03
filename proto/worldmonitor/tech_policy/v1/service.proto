@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+package worldmonitor.tech_policy.v1;
+
+import "sebuf/http/annotations.proto";
+import "worldmonitor/tech_policy/v1/list_tech_policy_signals.proto";
+import "worldmonitor/tech_policy/v1/list_sources.proto";
+import "worldmonitor/tech_policy/v1/get_dashboard_snapshot.proto";
+
+// TechPolicyService provides APIs for Taiwan tech policy monitoring workflows.
+service TechPolicyService {
+  option (sebuf.http.service_config) = {base_path: "/api/tech-policy/v1"};
+
+  // ListTechPolicySignals returns normalized event signals from selected sources.
+  rpc ListTechPolicySignals(ListTechPolicySignalsRequest) returns (ListTechPolicySignalsResponse) {
+    option (sebuf.http.config) = {path: "/list-tech-policy-signals", method: HTTP_METHOD_GET};
+  }
+
+  // ListSources returns source registry entries.
+  rpc ListSources(ListSourcesRequest) returns (ListSourcesResponse) {
+    option (sebuf.http.config) = {path: "/list-sources", method: HTTP_METHOD_GET};
+  }
+
+  // GetDashboardSnapshot returns aggregate counts and top signals.
+  rpc GetDashboardSnapshot(GetDashboardSnapshotRequest) returns (GetDashboardSnapshotResponse) {
+    option (sebuf.http.config) = {path: "/get-dashboard-snapshot", method: HTTP_METHOD_GET};
+  }
+}

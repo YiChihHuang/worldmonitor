@@ -1,0 +1,102 @@
+[
+  {
+    "id": "ndc",
+    "sourceId": "SOURCE_ID_NDC",
+    "name": "National Development Council (NDC)",
+    "type": "SOURCE_TYPE_POLICY",
+    "countryCode": "TW",
+    "official": true,
+    "homeUrl": "https://www.ndc.gov.tw/",
+    "notes": "National strategy, major policy plans, and implementation progress"
+  },
+  {
+    "id": "nstc",
+    "sourceId": "SOURCE_ID_NSTC",
+    "name": "National Science and Technology Council (NSTC)",
+    "type": "SOURCE_TYPE_POLICY",
+    "countryCode": "TW",
+    "official": true,
+    "homeUrl": "https://www.nstc.gov.tw/",
+    "notes": "R&D policy, science funding programs, and strategic technology roadmaps"
+  },
+  {
+    "id": "moea",
+    "sourceId": "SOURCE_ID_MOEA",
+    "name": "Ministry of Economic Affairs (MOEA)",
+    "type": "SOURCE_TYPE_POLICY",
+    "countryCode": "TW",
+    "official": true,
+    "homeUrl": "https://www.moea.gov.tw/",
+    "notes": "Industrial policy, investment policy, and technology development schemes"
+  },
+  {
+    "id": "moda",
+    "sourceId": "SOURCE_ID_MODA",
+    "name": "Ministry of Digital Affairs (MODA)",
+    "type": "SOURCE_TYPE_POLICY",
+    "countryCode": "TW",
+    "official": true,
+    "homeUrl": "https://www.moda.gov.tw/",
+    "notes": "Digital governance, data policy, cybersecurity and digital infrastructure"
+  },
+  {
+    "id": "dgbas",
+    "sourceId": "SOURCE_ID_DGBAS",
+    "name": "Directorate-General of Budget, Accounting and Statistics (DGBAS)",
+    "type": "SOURCE_TYPE_STATISTICS",
+    "countryCode": "TW",
+    "official": true,
+    "homeUrl": "https://www.dgbas.gov.tw/",
+    "notes": "Macroeconomic and labor statistics used to evaluate policy impact"
+  },
+  {
+    "id": "oecd",
+    "sourceId": "SOURCE_ID_OECD",
+    "name": "OECD",
+    "type": "SOURCE_TYPE_STATISTICS",
+    "countryCode": "EU",
+    "official": true,
+    "homeUrl": "https://www.oecd.org/",
+    "notes": "International benchmark data for innovation, industry and R&D"
+  },
+  {
+    "id": "wipo",
+    "sourceId": "SOURCE_ID_WIPO",
+    "name": "World Intellectual Property Organization (WIPO)",
+    "type": "SOURCE_TYPE_STATISTICS",
+    "countryCode": "CH",
+    "official": true,
+    "homeUrl": "https://www.wipo.int/",
+    "notes": "Patent and innovation indicators for cross-country comparison"
+  },
+  {
+    "id": "arxiv",
+    "sourceId": "SOURCE_ID_ARXIV",
+    "name": "arXiv",
+    "type": "SOURCE_TYPE_RESEARCH",
+    "countryCode": "US",
+    "official": false,
+    "homeUrl": "https://arxiv.org/",
+    "notes": "Early scientific research signals"
+  },
+  {
+    "id": "github",
+    "sourceId": "SOURCE_ID_GITHUB",
+    "name": "GitHub",
+    "type": "SOURCE_TYPE_INNOVATION",
+    "countryCode": "US",
+    "official": false,
+    "homeUrl": "https://github.com/",
+    "notes": "Engineering adoption and open-source implementation signals"
+  },
+  {
+    "id": "cisa",
+    "sourceId": "SOURCE_ID_CISA",
+    "name": "Cybersecurity and Infrastructure Security Agency (CISA)",
+    "type": "SOURCE_TYPE_CYBER_RISK",
+    "countryCode": "US",
+    "official": true,
+    "homeUrl": "https://www.cisa.gov/",
+    "notes": "Vulnerability advisories and cybersecurity alerts for risk monitoring"
+  }
+]
