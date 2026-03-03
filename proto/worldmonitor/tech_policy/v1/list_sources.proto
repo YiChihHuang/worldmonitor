@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+package worldmonitor.tech_policy.v1;
+
+import "sebuf/http/annotations.proto";
+import "worldmonitor/tech_policy/v1/tech_policy_item.proto";
+
+// ListSourcesRequest filters source registry entries.
+message ListSourcesRequest {
+  // Source types as comma-separated enum ids.
+  repeated SourceType types = 1 [(sebuf.http.query) = {name: "types"}];
+  // Include only official sources when true.
+  bool official_only = 2 [(sebuf.http.query) = {name: "official_only"}];
+}
+
+// ListSourcesResponse returns source registry entries.
+message ListSourcesResponse {
+  // Registered sources.
+  repeated Source items = 1;
+}

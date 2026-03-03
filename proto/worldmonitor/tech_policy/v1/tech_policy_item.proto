@@ -1,0 +1,122 @@
+syntax = "proto3";
+
+package worldmonitor.tech_policy.v1;
+
+import "buf/validate/validate.proto";
+import "sebuf/http/annotations.proto";
+import "worldmonitor/core/v1/geo.proto";
+
+// SourceType indicates the source category of a policy signal.
+enum SourceType {
+  SOURCE_TYPE_UNSPECIFIED = 0;
+  SOURCE_TYPE_POLICY = 1;
+  SOURCE_TYPE_STATISTICS = 2;
+  SOURCE_TYPE_RESEARCH = 3;
+  SOURCE_TYPE_INNOVATION = 4;
+  SOURCE_TYPE_CYBER_RISK = 5;
+}
+
+// SourceId identifies canonical source registries used by the platform.
+enum SourceId {
+  SOURCE_ID_UNSPECIFIED = 0;
+  SOURCE_ID_NDC = 1;
+  SOURCE_ID_NSTC = 2;
+  SOURCE_ID_MOEA = 3;
+  SOURCE_ID_MODA = 4;
+  SOURCE_ID_DGBAS = 5;
+  SOURCE_ID_OECD = 6;
+  SOURCE_ID_WIPO = 7;
+  SOURCE_ID_ARXIV = 8;
+  SOURCE_ID_GITHUB = 9;
+  SOURCE_ID_CISA = 10;
+  SOURCE_ID_EQUIVALENT_CYBER_AUTHORITY = 11;
+}
+
+// PolicyTheme classifies high-level policy themes for filtering and analytics.
+enum PolicyTheme {
+  POLICY_THEME_UNSPECIFIED = 0;
+  POLICY_THEME_AI = 1;
+  POLICY_THEME_SEMICONDUCTOR = 2;
+  POLICY_THEME_CYBERSECURITY = 3;
+  POLICY_THEME_DATA_GOVERNANCE = 4;
+  POLICY_THEME_TALENT = 5;
+  POLICY_THEME_RND_FUNDING = 6;
+  POLICY_THEME_DIGITAL_INFRA = 7;
+  POLICY_THEME_INDUSTRY_UPGRADE = 8;
+  POLICY_THEME_INTERNATIONAL_COOP = 9;
+}
+
+// SignalSeverity encodes alert intensity for decision dashboards.
+enum SignalSeverity {
+  SIGNAL_SEVERITY_UNSPECIFIED = 0;
+  SIGNAL_SEVERITY_INFO = 1;
+  SIGNAL_SEVERITY_WATCH = 2;
+  SIGNAL_SEVERITY_WARNING = 3;
+  SIGNAL_SEVERITY_CRITICAL = 4;
+}
+
+// Source describes a machine-readable source registry entry.
+message Source {
+  // Stable source key.
+  string id = 1 [
+    (buf.validate.field).required = true,
+    (buf.validate.field).string.min_len = 1
+  ];
+  // Canonical source enum.
+  SourceId source_id = 2;
+  // Human-friendly source name.
+  string name = 3 [
+    (buf.validate.field).required = true,
+    (buf.validate.field).string.min_len = 1
+  ];
+  // Source category.
+  SourceType type = 4;
+  // Home page URL.
+  string home_url = 5;
+  // Feed or API entrypoint URL.
+  string feed_url = 6;
+  // ISO 3166-1 alpha-2 country code.
+  string country_code = 7 [(buf.validate.field).string.max_len = 2];
+  // True if source is an official primary source.
+  bool official = 8;
+}
+
+// TechPolicySignal is a normalized event from policy, research, and risk feeds.
+message TechPolicySignal {
+  // Stable signal identifier.
+  string id = 1 [
+    (buf.validate.field).required = true,
+    (buf.validate.field).string.min_len = 1
+  ];
+  // Event title.
+  string title = 2 [
+    (buf.validate.field).required = true,
+    (buf.validate.field).string.min_len = 1
+  ];
+  // Short normalized summary.
+  string summary = 3;
+  // URL to original source item.
+  string source_item_url = 4;
+  // Canonical source id.
+  SourceId source_id = 5;
+  // Source category.
+  SourceType source_type = 6;
+  // Thematic labels.
+  repeated PolicyTheme themes = 7;
+  // Free-form tags.
+  repeated string tags = 8;
+  // Published time as Unix epoch milliseconds.
+  int64 published_at = 9 [(sebuf.http.int64_encoding) = INT64_ENCODING_NUMBER];
+  // Ingestion time as Unix epoch milliseconds.
+  int64 ingested_at = 10 [(sebuf.http.int64_encoding) = INT64_ENCODING_NUMBER];
+  // Relevance score in range [0,1].
+  double relevance_score = 11;
+  // Confidence score in range [0,1].
+  double confidence_score = 12;
+  // Signal severity.
+  SignalSeverity severity = 13;
+  // Optional geolocation when source provides coordinates.
+  worldmonitor.core.v1.GeoPoint location = 14;
+  // Region key (e.g. "taiwan", "apac", "global").
+  string region = 15;
+}

@@ -1,0 +1,50 @@
+syntax = "proto3";
+
+package worldmonitor.tech_policy.v1;
+
+import "sebuf/http/annotations.proto";
+import "worldmonitor/tech_policy/v1/tech_policy_item.proto";
+
+// GetDashboardSnapshotRequest retrieves aggregated stats for decision dashboards.
+message GetDashboardSnapshotRequest {
+  // Theme enum ids as comma-separated list.
+  repeated PolicyTheme themes = 1 [(sebuf.http.query) = {name: "themes"}];
+  // Start time filter as Unix epoch milliseconds.
+  int64 start_at = 2 [
+    (sebuf.http.int64_encoding) = INT64_ENCODING_NUMBER,
+    (sebuf.http.query) = {name: "start_at"}
+  ];
+  // End time filter as Unix epoch milliseconds.
+  int64 end_at = 3 [
+    (sebuf.http.int64_encoding) = INT64_ENCODING_NUMBER,
+    (sebuf.http.query) = {name: "end_at"}
+  ];
+}
+
+// ThemeStat summarizes aggregate stats by policy theme.
+message ThemeStat {
+  PolicyTheme theme = 1;
+  int32 signal_count = 2;
+  double avg_relevance = 3;
+  int32 warning_or_above_count = 4;
+}
+
+// SourceStat summarizes aggregate stats by source.
+message SourceStat {
+  SourceId source_id = 1;
+  int32 signal_count = 2;
+  int32 official_count = 3;
+}
+
+// DashboardSnapshot is an aggregate view for policy monitoring.
+message DashboardSnapshot {
+  int32 total_signals = 1;
+  repeated ThemeStat theme_stats = 2;
+  repeated SourceStat source_stats = 3;
+  repeated TechPolicySignal top_signals = 4;
+}
+
+// GetDashboardSnapshotResponse wraps aggregate snapshot payload.
+message GetDashboardSnapshotResponse {
+  DashboardSnapshot snapshot = 1;
+}
